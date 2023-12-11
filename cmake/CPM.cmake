@@ -550,7 +550,8 @@ macro(cpm_add_package_single_arg arg)
   )
   # cmake-format: on
 
-  cpm_add_package_multi_arg(${__ARGN_multi}) # Forward function arguments to CPMAddPackage()
+  cpm_add_package_multi_arg(${__ARGN_multi}) # Forward function arguments to original
+                                             # CPMAddPackage()
 endmacro()
 
 function(cpm_add_package_multi_arg)
@@ -1150,7 +1151,9 @@ function(cpm_prettify_package_arguments OUT_VAR IS_IN_COMMENT)
       EXCLUDE_FROM_ALL
       SOURCE_SUBDIR
   )
-  set(multiValueArgs OPTIONS)
+
+  set(multiValueArgs URL OPTIONS DOWNLOAD_COMMAND)
+
   cmake_parse_arguments(PARSE_ARGV 2 CPM_ARGS "" "${oneValueArgs}" "${multiValueArgs}")
 
   foreach(oneArgName ${oneValueArgs})
